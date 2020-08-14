@@ -19,18 +19,18 @@ import {
 const DATA = [
   {
     id: '1',
-    iconAvatar: require("./myPic/exit.jpg"),
-    title: 'First Item',
+    iconAvatar: require("./myPic/baloon_1.jpg"),
+    title: 'First News',
   },
   {
     id: '2',
-    iconAvatar: require("./myPic/exit_1.png"),
-    title: 'Second Item',
+    iconAvatar: require("./myPic/dapTamHiep.jpg"),
+    title: 'Second News',
   },
   {
     id: '3',
-    iconAvatar: require("./myPic/see_detail.png"),
-    title: 'Third Item',
+    iconAvatar: require("./myPic/helicopterUSA_1.jpg"),
+    title: 'Third News',
   },
 ];
 
@@ -42,8 +42,8 @@ const Item = ({ title }) => (
 
 const renderItem = ({ item }) => (
   <View>
-  <Image source={item.iconAvatar} style={styles.avatarStory} />
-  <Item title={item.title} />
+    <Image source={item.iconAvatar} style={styles.avatarStory} />
+    <Item title={item.title} />
   </View>
 );
 
@@ -52,17 +52,17 @@ const App: () => React$Node = () => {
     <>
       <StatusBar barStyle="dark-content" />
       <SafeAreaView>
-      <Text style={[styles.header_text, { fontWeight: "bold" }]}>Worldwide News</Text>
+        <Text style={[styles.header_text, { fontWeight: "bold" }]}>Worldwide News</Text>
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
-      <FlatList
-        data={DATA}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-      />
-         </ScrollView>
-            </SafeAreaView>
+          <FlatList
+            data={DATA}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+          />
+        </ScrollView>
+      </SafeAreaView>
     </>
   );
 };
@@ -89,11 +89,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
   title: {
-    fontSize: 32,
+    fontSize: 20,
   },
   avatarStory: {
-    width: 50,
-    height: 50,
+    width: 100,
+    height: 100,
   },
 });
 
