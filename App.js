@@ -47,8 +47,10 @@ const Item = ({ title }) => (
 const renderItem = ({ item }) => (
   <View style={styles.newsList} >
     <Image source={item.iconAvatar} style={styles.avatarStory} />
-    <Item title={item.title} />
-    <Item title={item.publishingTime} />
+    <View style={styles.newsContent} >
+      <Item title={item.title} />
+      <Item title={item.publishingTime} />
+    </View>
   </View>
 );
 
@@ -58,11 +60,11 @@ const App: () => React$Node = () => {
       <StatusBar barStyle="dark-content" />
       <SafeAreaView>
         <Text style={[styles.header_text, { fontWeight: "bold" }]}>Worldwide News 1</Text>
-          <FlatList
-            data={DATA}
-            renderItem={renderItem}
-            keyExtractor={item => item.id}
-          />
+        <FlatList
+          data={DATA}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+        />
       </SafeAreaView>
     </>
   );
@@ -73,7 +75,11 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: StatusBar.currentHeight || 0,
   },
-  newsList:{
+  newsList: {
+    flex:1,
+    flexDirection: "row",
+  },
+  newsContent: {
     flexDirection: "column",
   },
   header_text: {
@@ -88,18 +94,17 @@ const styles = StyleSheet.create({
   },
   item: {
     backgroundColor: '#f9c2ff',
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
+    padding: 10,
+    marginVertical: 4,
+    marginHorizontal: 4,
   },
   titleStyle: {
     fontSize: 20,
-    width: "75%",
+    flex: 1 / 4,
   },
   avatarStory: {
-    width: 100,
     height: 100,
-    width: "25%",
+    flex: 3 / 4,
   },
 });
 
