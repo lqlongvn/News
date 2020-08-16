@@ -1,65 +1,97 @@
+import React, {useState, useEffect} from 'react';
+import {
+  Text,
+  FlatList,
+  View,
+  StyleSheet,
+  Image,
+  Button,
+  ActivityIndicator,
+} from 'react-native';
 
-import React from 'react';
-import { Text, FlatList, View, StyleSheet } from 'react-native';
-
-
-const { View } = require("react-native")
-const DATA = [
-  {
-    id: '1',
-    iconAvatar: require("./myPic/baloon_1.jpg"),
-    title: 'First News',
-    publishingTime: '15/8/20',
-  },
-  {
-    id: '2',
-    iconAvatar: require("./myPic/dapTamHiep.jpg"),
-    title: 'Second News',
-    publishingTime: '12/8/20',
-  },
-  {
-    id: '3',
-    iconAvatar: require("./myPic/helicopterUSA_1.jpg"),
-    title: 'Third News',
-    publishingTime: '14/8/20',
-  },
-];
-
-
+// Thay bằng key cá nhân để không bị hạn chế https://newsapi.org/
+const API_KEY = '2b31ab63402b46388c46ae1559570030'; //Key của Long
 
 const Home = () => {
-  const renderItem = ({ item }) => (
-    <View style={StyleSheet.listItem}>
-      <Text>
-        {item.title}
-      </Text>
+  console.log('Render Home');
 
+  const [isLoading, setLoading] = useState(true);
+  const [articles, setArticles] = useState([]);
+
+  console.log('State', isLoading);
+
+  // Chỉ gọi API lần đầu render component
+  useEffect(() => {
+    async function getNews() {
+      const response = await fetch(
+        'http://newsapi.org/v2/everything?q=bitcoin&sortBy=publishedAt&apiKey=' +
+          API_KEY,
+      );
+      const jsonData = await response.json();
+      setArticles(jsonData.articles);
+
+      // Lấy dữ liệu xong thì tắt biểu tượng loading
+      setLoading(false);
+    }
+
+    console.log('Call API');
+    getNews();
+  }, []);
+
+  const renderItem = ({item}) => (
+    <View style={styles.listItem}>
+      <Image source={{uri: item.urlToImage}} style={styles.thumbnail} />
+
+      <View style={styles.info}>
+        <Text style={styles.title}>{item.title}</Text>
+        <Text style={styles.publishedAt}>{item.publishDate}</Text>
+      </View>
     </View>
   );
 
-  return (
-    <>
-      <Text> News  </Text>
-      <FlatList
-        style={StyleSheet.list}
-        data={DATA}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-      />
+  const renderSeparator = () => <View style={styles.separator} />;
 
-    </>
+  return (
+    <View style={styles.container}>
+      <Text>News</Text>
+
+      {isLoading ? (
+        <ActivityIndicator size="small" color="#0000ff" />
+      ) : (
+        <FlatList
+          style={styles.list}
+          data={articles}
+          renderItem={renderItem}
+          ItemSeparatorComponent={renderSeparator}
+          keyExtractor={(item) => item.url}
+        />
+      )}
+    </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingHorizontal: 15,
+  },
   list: {
-    width: 100,
-    height: 100,
-    width: "25%",
+    flex: 1,
   },
   listItem: {
-    width: 100,
-    height: 100,
-    width: "25%",
+    backgroundColor: 'pink',
+    flexDirection: 'row',
+  },
+  thumbnail: {
+    width: 150,
+    height: 150,
+    resizeMode: 'contain',
+  },
+  separator: {
+    borderBottomWidth: 1,
+    borderBottomColor: 'red',
+    marginVertical: 10,
   },
 });
+
+export default Home;
