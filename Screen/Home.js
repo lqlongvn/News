@@ -64,6 +64,10 @@ const Home = () => {
           renderItem={renderItem}
           ItemSeparatorComponent={renderSeparator}
           keyExtractor={(item) => item.url}
+          onEndReachedThreshold={3}
+          onEndReached={({ distanceFromEnd }) => {
+             this._ItemLoadMore();
+          }}
         />
       )}
     </View>
