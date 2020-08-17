@@ -13,7 +13,8 @@ export const DATA = [
   },
   {
     id: '3',
-    iconAvatar: require("../myPic/helicopterUSA_1.jpg"),
+    //iconAvatar: require("../myPic/helicopterUSA_1.jpg"),
+    iconAvatar:{uri:"https://vnn-imgs-f.vgcloud.vn/2020/08/17/09/nha-ngheo-ban-gai-doi-dam-cuoi-hoanh-trang-de-mat-mat-voi-hang-xom.jpg"},
     title: 'Third News',
     publishingTime:'14/8/20',
   },
