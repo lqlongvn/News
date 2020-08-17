@@ -12,6 +12,11 @@ import {
 // Thay bằng key cá nhân để không bị hạn chế https://newsapi.org/
 const API_KEY = '2b31ab63402b46388c46ae1559570030'; //Key của Long
 
+
+// https://newsapi.org/v2/top-headlines?sources=bbc-news,cbc-news,nbc-news,fox-news,mtv-news=&page=1&pageSize=10&apiKey=${API_KEY}
+// 'http://newsapi.org/v2/everything?q=bitcoin&sortBy=publishedAt&apiKey=' + API_KEY,
+// 'https://newsapi.org/v2/top-headlines?sources=bbc-news,cbc-news,nbc-news,fox-news,mtv-news=&page=1&pageSize=10&apiKey=' + API_KEY,
+
 const Home = () => {
   console.log('Render Home');
 
@@ -24,9 +29,7 @@ const Home = () => {
   useEffect(() => {
     async function getNews() {
       const response = await fetch(
-        'http://newsapi.org/v2/everything?q=bitcoin&sortBy=publishedAt&apiKey=' +
-          API_KEY,
-      );
+        'https://newsapi.org/v2/top-headlines?sources=bbc-news,cbc-news,nbc-news,fox-news,mtv-news=&page=1&pageSize=10&apiKey=' + API_KEY,      );
       const jsonData = await response.json();
       setArticles(jsonData.articles);
 
@@ -66,7 +69,7 @@ const Home = () => {
           keyExtractor={(item) => item.url}
           onEndReachedThreshold={3}
           onEndReached={({ distanceFromEnd }) => {
-             this._ItemLoadMore();
+             //this._ItemLoadMore();
           }}
         />
       )}
