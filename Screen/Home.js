@@ -43,7 +43,7 @@ const Home = () => {
       <Image source={{uri: item.urlToImage}} style={styles.thumbnail} />
 
       <View style={styles.info}>
-        <Text style={styles.title}>{item.title}</Text>
+        <Text style={styles.newsContent}>{item.title}</Text>
         <Text style={styles.publishedAt}>{item.publishDate}</Text>
       </View>
     </View>
@@ -53,7 +53,7 @@ const Home = () => {
 
   return (
     <View style={styles.container}>
-      <Text>News</Text>
+      <Text style={[styles.header_text, { fontWeight: "bold" }]}>Worldwide News</Text>
 
       {isLoading ? (
         <ActivityIndicator size="small" color="#0000ff" />
@@ -75,6 +75,14 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 15,
   },
+  header_text: {
+    color: "#e85154",
+    fontSize: 32,
+    lineHeight: 40,
+    textAlign: "center",
+    marginTop:15,
+    marginBottom:15,
+  },
   list: {
     flex: 1,
   },
@@ -85,6 +93,17 @@ const styles = StyleSheet.create({
   thumbnail: {
     width: 150,
     height: 150,
+    resizeMode: 'contain',
+  },
+  info:{
+    paddingHorizontal: 15,
+    paddingVertical: 25,
+    paddingRight: 15,
+  },
+  newsContent:{
+    fontSize:20,
+    fontWeight:"bold",
+    color:"blue",
     resizeMode: 'contain',
   },
   separator: {
