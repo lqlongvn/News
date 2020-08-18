@@ -18,10 +18,9 @@ const API_KEY = '2b31ab63402b46388c46ae1559570030'; //Key của Long
 // 'https://newsapi.org/v2/top-headlines?sources=bbc-news,cbc-news,nbc-news,fox-news,mtv-news=&page=1&pageSize=10&apiKey=' + API_KEY,
 
 const Home = () => {
-  console.log('Render Home');
-
   const [isLoading, setLoading] = useState(true);
   const [articles, setArticles] = useState([]);
+  const [page, setPage] = useState(1);
 
   console.log('State', isLoading);
 
@@ -29,7 +28,7 @@ const Home = () => {
   useEffect(() => {
     async function getNews() {
       const response = await fetch(
-        'https://newsapi.org/v2/top-headlines?sources=bbc-news,cbc-news,nbc-news,fox-news,mtv-news=&page=1&pageSize=10&apiKey=' + API_KEY,      );
+        'https://newsapi.org/v2/top-headlines?sources=bbc-news,cbc-news,nbc-news,fox-news,mtv-news=&page=1&pageSize=3&apiKey=' + API_KEY,      );
       const jsonData = await response.json();
       setArticles(jsonData.articles);
 
@@ -53,6 +52,10 @@ const Home = () => {
   );
 
   const renderSeparator = () => <View style={styles.separator} />;
+  function loadMoreArticles(){
+    //Gọi lên api để lấy dữ liệu trang tiếp theo
+    setPage((page)=>page+1);
+  }
 
   return (
     <View style={styles.container}>
@@ -68,9 +71,7 @@ const Home = () => {
           ItemSeparatorComponent={renderSeparator}
           keyExtractor={(item) => item.url}
           onEndReachedThreshold={3}
-          onEndReached={({ distanceFromEnd }) => {
-             //this._ItemLoadMore();
-          }}
+          onEndReached={loadMoreArticles}
         />
       )}
     </View>
