@@ -24,7 +24,7 @@ const Home = () => {
   useEffect(() => {
     async function getNews() {
       const response = await fetch(
-        'https://newsapi.org/v2/top-headlines?sources=bbc-news,cbc-news,nbc-news,fox-news,mtv-news=&page='+page+'&pageSize=6&apiKey=' + API_KEY,      );
+        'https://newsapi.org/v2/top-headlines?sources=bbc-news,cbc-news,nbc-news,fox-news,mtv-news=&page='+page+'&pageSize=3&apiKey=' + API_KEY,      );
       const jsonData = await response.json();
       setArticles(jsonData.articles);
 
@@ -48,13 +48,14 @@ const Home = () => {
   );
 
   const renderSeparator = () => <View style={styles.separator} />;
+
   async function loadMoreArticles(){
     //Gọi lên api để lấy dữ liệu trang tiếp theo
     setPage((page)=>page+1);
-    fetch(
-      'https://newsapi.org/v2/top-headlines?sources=bbc-news,cbc-news,nbc-news,fox-news,mtv-news=&page='+page+'&pageSize=6&apiKey=' + API_KEY,      );
+    const response = await fetch(
+      'https://newsapi.org/v2/top-headlines?sources=bbc-news,cbc-news,nbc-news,fox-news,mtv-news=&page='+(page+1)+'&pageSize=3&apiKey=' + API_KEY,      );
     const jsonData = await response.json();
-    setArticles(jsonData.articles);
+    setArticles(articles.concat(jsonData.articles));
   }
 
   return (
