@@ -7,15 +7,11 @@ import {
   Image,
   Button,
   ActivityIndicator,
+  SafeAreaView,
 } from 'react-native';
 
 // Thay bằng key cá nhân để không bị hạn chế https://newsapi.org/
 const API_KEY = '2b31ab63402b46388c46ae1559570030'; //Key của Long
-
-
-// https://newsapi.org/v2/top-headlines?sources=bbc-news,cbc-news,nbc-news,fox-news,mtv-news=&page=1&pageSize=10&apiKey=${API_KEY}
-// 'http://newsapi.org/v2/everything?q=bitcoin&sortBy=publishedAt&apiKey=' + API_KEY,
-// 'https://newsapi.org/v2/top-headlines?sources=bbc-news,cbc-news,nbc-news,fox-news,mtv-news=&page=1&pageSize=10&apiKey=' + API_KEY,
 
 const Home = () => {
   const [isLoading, setLoading] = useState(true);
@@ -28,7 +24,7 @@ const Home = () => {
   useEffect(() => {
     async function getNews() {
       const response = await fetch(
-        'https://newsapi.org/v2/top-headlines?sources=bbc-news,cbc-news,nbc-news,fox-news,mtv-news=&page=1&pageSize=3&apiKey=' + API_KEY,      );
+        'https://newsapi.org/v2/top-headlines?sources=bbc-news,cbc-news,nbc-news,fox-news,mtv-news=&page='+page+'&pageSize=6&apiKey=' + API_KEY,      );
       const jsonData = await response.json();
       setArticles(jsonData.articles);
 
@@ -46,19 +42,23 @@ const Home = () => {
 
       <View style={styles.info}>
         <Text style={styles.newsContent}>{item.title}</Text>
-        <Text style={styles.publishedAt}>{item.publishDate}</Text>
+        <Text style={styles.publishedAt}>{item.publishedAt}</Text>
       </View>
     </View>
   );
 
   const renderSeparator = () => <View style={styles.separator} />;
-  function loadMoreArticles(){
+  async function loadMoreArticles(){
     //Gọi lên api để lấy dữ liệu trang tiếp theo
     setPage((page)=>page+1);
+    fetch(
+      'https://newsapi.org/v2/top-headlines?sources=bbc-news,cbc-news,nbc-news,fox-news,mtv-news=&page='+page+'&pageSize=6&apiKey=' + API_KEY,      );
+    const jsonData = await response.json();
+    setArticles(jsonData.articles);
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text style={[styles.header_text, { fontWeight: "bold" }]}>Worldwide News</Text>
 
       {isLoading ? (
@@ -74,7 +74,7 @@ const Home = () => {
           onEndReached={loadMoreArticles}
         />
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 
