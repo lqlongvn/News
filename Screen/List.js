@@ -4,13 +4,10 @@ import {
   FlatList,
   View,
   StyleSheet,
-  Image,
-  ActivityIndicator,
-  TouchableOpacity,
-  Linking,
-  Alert,
+  
 } from 'react-native';
 
+export default function List() {
   return (
     <View style={styles.container}>
       <Text> List </Text>
@@ -26,4 +23,3 @@ const styles = StyleSheet.create({
 
 });
 
-export default Home;

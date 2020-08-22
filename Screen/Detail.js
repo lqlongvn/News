@@ -1,19 +1,13 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
-  Text,
-  FlatList,
-  View,
   StyleSheet,
-  Image,
-  ActivityIndicator,
-  TouchableOpacity,
-  Linking,
-  Alert,
+
 } from 'react-native';
 
+export default function Detail() {
   return (
     <View style={styles.container}>
-      <Text> List </Text>
+      <Text> Detail </Text>
     </View>
   );
 };
@@ -26,4 +20,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default Home;
+

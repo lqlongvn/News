@@ -1,16 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import {
   Text,
-  FlatList,
   View,
   StyleSheet,
-  Image,
-  ActivityIndicator,
-  TouchableOpacity,
-  Linking,
-  Alert,
 } from 'react-native';
 
+export default function Login() {
   return (
     <View style={styles.container}>
       <Text> Login </Text>
@@ -26,4 +21,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default Home;
+
